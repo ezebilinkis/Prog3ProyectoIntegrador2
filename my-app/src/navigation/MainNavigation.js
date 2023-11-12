@@ -40,9 +40,9 @@ export default function MainNavigation() {
         <Stack.Screen
           name='Comments'
           component={Comments}
-          // options={{
-          //   headerShown: false
-          // }}
+          //options={
+            //headerShown: false
+          //}
         />
       </Stack.Navigator>
     </NavigationContainer>
