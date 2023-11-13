@@ -58,6 +58,9 @@ export default class Posteo extends Component {
             <TouchableOpacity onPress={()=>this.likes()}>
                 <Text>Likes: {this.props.data.likes.length}</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate('Comments', {id: this.props.id})}>
+                <Text>Comentarios: {this.props.data.comentarios.length}</Text>
+            </TouchableOpacity>
         </View>
   )
 }
