@@ -11,18 +11,19 @@ export default class Profile extends Component {
   }
 
   componentDidMount(){
-    db.collection('users').where('owner','==',auth.currentUser.email).onSnapshot((docs)=>{
-      let perfil = []
+    db.collection('users').onSnapshot((docs)=>{
+      let arrDocs = []
       docs.forEach((doc) => {
-        perfil.push({
+        arrDocs.push({
           id:doc.id,
           data: doc.data()
         })
       })
 
       this.setState({
-        usuarios : perfil
-      })
+        usuarios : arrDocs
+      }, () => console.log(this.state.usuarios))
+
     })
   }
 
@@ -34,13 +35,13 @@ export default class Profile extends Component {
   render() {
     return (
       <View>
-        <Text style={styles.miPerfilTxt}>Mi perfil:</Text>
+        <Text>El email del usuario es:</Text>
           <FlatList
             data={this.state.usuarios}
             keyExtractor={(item)=> item.id.toString() }
             renderItem={ ( {item} ) => <View>
-                <Text style={styles.datosMiPerfilTxt}>{item.data.name}</Text>
-                <Text style={styles.datosMiPerfilTxt}>{item.data.minibio}</Text>
+              <Text>{item.data.name}</Text>
+              <Text>{item.data.minibio}</Text>
               </View>
                }
         />
@@ -72,22 +73,4 @@ signoutBtnText: {
   fontSize: 16,   
   fontWeight: 'bold',  
 },
-miPerfilTxt:{
-  color: 'black',
-  fontSize: 25,
-  fontWeight: 'bold',  
-  alignItems: 'center',   
-  justifyContent: 'center',
-  alignSelf: 'center'
-
-
-},
-datosMiPerfilTxt:{
-  fontSize:18,
-  alignItems: 'center',   
-  justifyContent: 'center',
-  alignSelf: 'center'
-
-}
-
 })
