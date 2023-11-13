@@ -3,7 +3,7 @@ import React from 'react'
 import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Home from '../screens/Home'
 import Profile from '../screens/Profile'
-import Post from '../screens/post'
+import Post from '../screens/Post'
 import Search from '../screens/search'
 import { FontAwesome5 } from '@expo/vector-icons';
 
