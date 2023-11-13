@@ -26,7 +26,11 @@ export default class Post extends Component {
     descripcion,
     fotoUrl
   }){
-    db.collection('posts').add(
+    if(fotoUrl === '' || descripcion === ''){
+      alert('Debe agregar una imagen y rellenar la descripcion, recuerde tocar aceptar en la foto. ')
+    }
+    else{
+      db.collection('posts').add(
       {
         owner: auth.currentUser.email,
         createdAt: Date.now(),
@@ -38,6 +42,8 @@ export default class Post extends Component {
     )
     .then(()=> this.props.navigation.navigate('Home'))
     .catch((e) => console.log(e))
+    }
+    
 
   }
 
