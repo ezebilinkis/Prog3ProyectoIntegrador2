@@ -1,7 +1,7 @@
-import { Text, View, TouchableOpacity, StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image, FlatList, ActivityIndicator, ScrollView } from 'react-native'
 import React, { Component } from 'react'
 import { db } from '../firebase/config'
-
+import Posteo from '../components/Posteo'
 
 export default class Home extends Component {
     constructor(props) {
@@ -24,16 +24,22 @@ export default class Home extends Component {
 
         this.setState({
            posteos: arrPosteos 
-        }, ()=> console.log(this.state.posteos))
+        })
     })
     }
 
 
 render() {
     return (
-      <Text>
-        Este es el home
-      </Text>
+      <ScrollView>
+        <Text>HOME</Text>
+        <FlatList
+        data={this.state.posteos}
+        keyExtractor={(item)=> item.id.toString()}
+        renderItem={({ item })=> <Posteo navigation={this.props.navigation} data={item.data} id={item.id}/>
+        }/>
+
+      </ScrollView>
     )
   }
 }
