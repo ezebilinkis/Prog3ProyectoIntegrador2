@@ -11,7 +11,8 @@ export default class Comments extends Component {
           haycoments: false,
           id: this.props.route.params.id,
           datos: '',
-          comentario: ''
+          comentario: '',
+          comentarios: []
         }
     }
     componentDidMount(){
@@ -20,9 +21,9 @@ export default class Comments extends Component {
           ()=>{
             if(this.state.datos.comentarios.length > 0){
             this.setState({
-              haycoments: true
+              haycoments: true,
+              comentarios: this.state.datos.comentarios.reverse()
             })
-
           }
 
           }))
@@ -54,7 +55,7 @@ render() {
         {
           this.state.haycoments?
           <FlatList
-                    data={this.state.datos.comentarios}
+                    data={this.state.comentarios}
                     keyExtractor = {(item)=> item.createdAt.toString()}
                     renderItem={({item})=> <View>
                         <Text>{item.owner}</Text>
