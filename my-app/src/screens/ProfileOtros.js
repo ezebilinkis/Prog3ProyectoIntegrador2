@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, FlatList, ScrollView } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList, ScrollView, Image } from 'react-native'
 import { auth, db } from '../firebase/config'
 import Posteo from '../components/Posteo'
 export default class Profile extends Component {
@@ -16,8 +16,13 @@ export default class Profile extends Component {
     if(auth.currentUser.email == this.props.route.params.email){
       this.setState({
         esUserLogueado: true
+      }, ()=>{
+        if(this.state.esUserLogueado){
+          this.props.navigation.navigate('Profile')
+        }
       })
     }
+    console.log(this.props.route.params.email)
     db.collection('users').where('owner','==', this.props.route.params.email).onSnapshot((docs)=>{
       let perfil = []
       docs.forEach((doc) => {
@@ -29,7 +34,7 @@ export default class Profile extends Component {
       
       this.setState({
         usuarios : perfil
-      })
+      }, ()=>console.log(this.state.usuarios))
     })
     db.collection('posts').where('owner','==', this.props.route.params.email).onSnapshot((docs)=>{
       let post = []
@@ -44,6 +49,7 @@ export default class Profile extends Component {
         posteo : post
       }, ()=> console.log(this.state.posteo))
     })
+    
   }
 
   logout(){
@@ -51,38 +57,45 @@ export default class Profile extends Component {
     this.props.navigation.navigate('Register')
   }
 
+  borrarPosteo(item){
+    db.collection('posts').doc(item.id).delete()
+    .then(()=>alert('El posteo fue eliminado correctamente'))
+    
+  }
+
+
   render() {
     return (
       <View>
-        <Text style={styles.miPerfilTxt}>Mi perfil:</Text>
+        <Text style={styles.miPerfilTxt}>Perfil</Text>
+        {console.log(this.state.usuarios)}
           <FlatList
             data={this.state.usuarios}
             keyExtractor={(item)=> item.id.toString() }
-            renderItem={ ( {item} ) => <View>
-                <Text style={styles.datosMiPerfilTxt}>{item.data.name}</Text>
-                <Text style={styles.datosMiPerfilTxt}>{item.data.minibio}</Text>
+            renderItem={ ( {item} ) => <View style={styles.container}>
+                <Text style={styles.datosMiPerfilTxt}>Nombre de usuario: {item.data.name}</Text>
+                <Text style={styles.datosMiPerfilTxt}>Minibio: {item.data.minibio}</Text>
+                <Text style={styles.datosMiPerfilTxt}>Email: {item.data.owner}</Text>
+                {
+                  item.data.fotoPerfil == ''?
+                  <></>
+                  :
+                  <Image source={{uri: item.data.fotoPerfil}} style = {styles.img}/>
+                }
+                <Text style={styles.datosMiPerfilTxt}>Cantidad de posteos: {this.state.posteo.length}</Text>
               </View>
                }
         />
-        {
-          this.state.esUserLogueado?
-          <View>
-          <TouchableOpacity
-          style={styles.signoutBtn}
-          onPress={()=> this.logout()}
-          >
-            <Text style={styles.signoutBtnText}>Cerrar sesión</Text>
-          </TouchableOpacity>
-        </View>
-          :
-          <></>
-        }
-        {/* Capaz falta un condicional en esto que podremos implementar cuando hagamos el buscador de usuarios */}
+        
         <ScrollView>
           <FlatList
             data={this.state.posteo}
             keyExtractor={(item)=> item.id.toString()}
-            renderItem={({ item })=> <Posteo navigation={this.props.navigation} data={item.data} id={item.id}/>}
+            renderItem={({ item })=> <View>
+              <Posteo navigation={this.props.navigation} data={item.data} id={item.id}/>
+              
+              </View>}
+            
           />
         </ScrollView>
         
@@ -122,6 +135,13 @@ datosMiPerfilTxt:{
   justifyContent: 'center',
   alignSelf: 'center'
 
+},
+img:{
+  height: 300,
+  width: 300
+},
+container:{
+  alignSelf: 'center'
 }
 
 })
