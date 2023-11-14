@@ -4,7 +4,7 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import TabNavigation from './TabNavigation';
 
-
+import AgregarFoto from '../screens/AddFoto';
 import Register from '../screens/Register';
 import Login from '../screens/login';
 import Comments from '../screens/Comments';
@@ -48,6 +48,13 @@ export default function MainNavigation() {
           name='Perfil' 
           component={ProfileOtros}
           />
+        <Stack.Screen 
+        name='AgregarFoto' 
+        component={AgregarFoto}
+        options={{
+          headerShown: false
+        }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )

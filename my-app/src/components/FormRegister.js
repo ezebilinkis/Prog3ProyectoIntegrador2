@@ -21,9 +21,10 @@ class FormRegister extends Component {
             createdAt: Date.now(),
             name: this.state.name,
             minibio: this.state.minibio,
+            fotoPerfil: ''
           })
       )
-      .then((resp) => console.log(resp))
+      .then((resp) => this.props.navigation.navigate('AgregarFoto',{docId: resp.id}))
       .catch((err) => console.log(err));
   }
 
