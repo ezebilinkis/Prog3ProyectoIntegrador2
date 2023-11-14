@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 import { auth, db } from '../firebase/config'
+import Posteo from '../components/Posteo'
 
 export default class Profile extends Component {
   constructor(props){
     super(props)
     this.state = {
-      usuarios:[]
+      usuarios:[],
+      posts: []
+      
     }
   }
 
@@ -19,11 +22,22 @@ export default class Profile extends Component {
           data: doc.data()
         })
       })
-
+      
       this.setState({
         usuarios : perfil
       })
     })
+    db.collection('posts').onSnapshot((postDocs) => {
+      let postsData = []
+      postDocs.forEach((doc) => {
+        postsData.push({
+          id: doc.id,
+          data: doc.data()
+        })
+      })
+      this.setState({ posts: postsData })
+    })
+   
   }
 
   logout(){
@@ -41,9 +55,11 @@ export default class Profile extends Component {
             renderItem={ ( {item} ) => <View>
                 <Text style={styles.datosMiPerfilTxt}>{item.data.name}</Text>
                 <Text style={styles.datosMiPerfilTxt}>{item.data.minibio}</Text>
+                <Text style={styles.datosMiPerfilTxt}>{item.data.owner}</Text>
               </View>
                }
         />
+        
         <View>
           <TouchableOpacity
           style={styles.signoutBtn}
@@ -52,6 +68,8 @@ export default class Profile extends Component {
             <Text style={styles.signoutBtnText}>Cerrar sesión</Text>
           </TouchableOpacity>
         </View>
+
+    
       </View>
     )
   }
