@@ -7,7 +7,7 @@ class FormRegister extends Component {
     super(props);
     this.state = {
       name: '',
-      mail: '',
+      email: '',
       password: '',
       minibio: '',
       errormail: false,
@@ -20,7 +20,7 @@ class FormRegister extends Component {
     if(name==''){
       return this.setState({errornombre: true})
     }
-    if(mail==''){
+    if(email==''){
       return this.setState({errormail: true})
     }
     if(password==''){
@@ -29,7 +29,7 @@ class FormRegister extends Component {
     auth.createUserWithEmailAndPassword(email, password)
       .then((user) =>
         db.collection('users').add({
-            owner: this.state.mail,
+            owner: this.state.email,
             createdAt: Date.now(),
             name: this.state.name,
             minibio: this.state.minibio,
@@ -59,15 +59,15 @@ class FormRegister extends Component {
           />
           {
             this.state.errormail ?
-            <Text style={styles.advert}>*Debes ingresar un mail válido</Text>
+            <Text style={styles.advert}>*Debes ingresar un email válido</Text>
             : ''
           }
           <TextInput
             style={styles.input}
             placeholder="Dinos tu email"
             keyboardType="email-address"
-            value={this.state.mail}
-            onChangeText={(text) => this.setState({ mail: text })}
+            value={this.state.email}
+            onChangeText={(text) => this.setState({ email: text })}
           />
           <TextInput
             style={styles.input}
@@ -98,7 +98,7 @@ class FormRegister extends Component {
 
           <TouchableOpacity
             onPress={() =>
-              this.registrarUsuario(this.state.name, this.state.mail, this.state.password)
+              this.registrarUsuario(this.state.name, this.state.email, this.state.password)
             }
             style={styles.btn}
           >
