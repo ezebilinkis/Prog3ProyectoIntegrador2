@@ -32,7 +32,6 @@ export default class Home extends Component {
 render() {
     return (
       <ScrollView>
-        <Text>HOME</Text>
         <FlatList
         data={this.state.posteos}
         keyExtractor={(item)=> item.id.toString()}

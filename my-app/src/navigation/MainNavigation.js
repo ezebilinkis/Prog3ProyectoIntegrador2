@@ -5,10 +5,10 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import TabNavigation from './TabNavigation';
 
 
-import Register from '../screens/register';
+import Register from '../screens/Register';
 import Login from '../screens/login';
 import Comments from '../screens/Comments';
-
+import ProfileOtros from '../screens/ProfileOtros';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +44,10 @@ export default function MainNavigation() {
             //headerShown: false
           //}
         />
+        <Stack.Screen 
+          name='Perfil' 
+          component={ProfileOtros}
+          />
       </Stack.Navigator>
     </NavigationContainer>
   )

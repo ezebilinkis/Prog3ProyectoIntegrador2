@@ -42,7 +42,10 @@ export default class Posteo extends Component {
   render() {
     return (
       <View style={styles.postContainer}>
-        <Text style={styles.ownerText}>{this.props.data.owner}</Text>
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Perfil', {email: this.props.data.owner})}}>
+          <Text style={styles.ownerText}>{this.props.data.owner}</Text>
+        </TouchableOpacity>
+        
         <Image
           style={styles.imgCard}
           source={{
