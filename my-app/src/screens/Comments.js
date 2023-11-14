@@ -86,12 +86,17 @@ export default class Comments extends Component {
           actuCom={(texto) => this.actualizarComentario(texto)}
           estCom={this.state.comentario}
         />
-        <TouchableOpacity
+        {
+          this.state.comentario == ''?
+          <></>
+          :
+          <TouchableOpacity
           style={styles.publishButton}
           onPress={() => this.onSubmit()}
         >
           <Text style={styles.publishButtonText}>Publicar</Text>
         </TouchableOpacity>
+        }
       </ScrollView>
     );
   }
