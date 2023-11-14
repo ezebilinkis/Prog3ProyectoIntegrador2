@@ -59,7 +59,7 @@ export default class Search extends Component {
                             data={this.state.usuariosEncontrados}
                             renderItem={({ item }) => (
                                 <View style={styles.itemContainer}>
-                                  <Text style={styles.itemText}>{item.data.owner}</Text>
+                                  <Text style={styles.itemText}></Text> {/*no se que poner*/}
                                 </View>
                             )}
                         />

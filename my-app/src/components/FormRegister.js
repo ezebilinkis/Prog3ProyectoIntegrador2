@@ -14,6 +14,15 @@ class FormRegister extends Component {
   }
 
   registrarUsuario(name, email, password) {
+    if(name=='' ){
+      alert('Debes completar el nombre')
+    }
+    if(email==''){
+      alert('Debes completar el email')
+    }
+    if(password==''){
+      alert('Debes completar el password')
+    }
     auth.createUserWithEmailAndPassword(email, password)
       .then((user) =>
         db.collection('users').add({

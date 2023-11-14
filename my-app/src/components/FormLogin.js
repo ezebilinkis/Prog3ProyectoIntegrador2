@@ -17,7 +17,7 @@ export default class FormLogin extends Component {
       .then((user) => {
         this.props.navigation.navigate('TabNavigation');
       })
-      .catch((e) => console.log(e));
+      .catch((e) => alert('Email o contraseña incorrectos'));
   }
 
   render() {
