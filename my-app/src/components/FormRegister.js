@@ -10,18 +10,21 @@ class FormRegister extends Component {
       mail: '',
       password: '',
       minibio: '',
+      errormail: false,
+      errorcontra: false,
+      errornombre:false
     };
   }
 
   registrarUsuario(name, email, password) {
-    if(name=='' ){
-      alert('Debes completar el nombre')
+    if(name==''){
+      return this.setState({errornombre: true})
     }
-    if(email==''){
-      alert('Debes completar el email')
+    if(mail==''){
+      return this.setState({errormail: true})
     }
     if(password==''){
-      alert('Debes completar el password')
+      return this.setState({errorcontra: true})
     }
     auth.createUserWithEmailAndPassword(email, password)
       .then((user) =>
@@ -42,6 +45,11 @@ class FormRegister extends Component {
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.formContainer}>
           <Text style={styles.title}>Regístrate en mi app</Text>
+          {
+            this.state.errornombre ?
+            <Text style={styles.advert}>*Debes ingresar un nombre válido</Text>
+            : ''
+          }
           <TextInput
             style={styles.input}
             placeholder="Dinos tu nombre"
@@ -49,7 +57,11 @@ class FormRegister extends Component {
             value={this.state.name}
             onChangeText={(text) => this.setState({ name: text })}
           />
-
+          {
+            this.state.errormail ?
+            <Text style={styles.advert}>*Debes ingresar un mail válido</Text>
+            : ''
+          }
           <TextInput
             style={styles.input}
             placeholder="Dinos tu email"
@@ -63,6 +75,11 @@ class FormRegister extends Component {
             value={this.state.minibio}
             onChangeText={(text) => this.setState({ minibio: text })}
           />
+          {
+            this.state.errorcontra ?
+            <Text style={styles.advert}>*Debes ingresar una contraseña válida</Text>
+            : ''
+          }
           <TextInput
             style={styles.input}
             placeholder="Dinos tu password"
@@ -131,6 +148,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
   },
+  advert:{
+    color: 'red',
+  }
 });
 
 export default FormRegister;
