@@ -1,40 +1,37 @@
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { View, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
 export default class FormSearch extends Component {
-    constructor(props){
-        super(props)
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    evitarSubmit(event) {
-        event.preventDefault();
+  evitarSubmit(evento) {
+    evento.preventDefault()
+  }
 
-    }
+  actualizar(texto) {
+    this.props.actualizar(texto)
+    this.props.Filtro(texto)
+  }
 
-    consultar(consulta){
-        this.props.actualizar(consulta);
-        this.props.Filtro(consulta);
-
-    }
-
-    render() {
-        return (
-          <View>
-            <TextInput
-            style={styles.input}
-            placeholder="Introduzca un email"
-            name="búsqueda"
-            consultar={(consulta) => this.consultar(consulta)}
-            />
-            <TouchableOpacity 
-            style={styles.btn}
-            onPress={(event) => this.evitarSubmit(event)}>
-             <Text style = {styles.textBtn} >Buscar</Text>
-
-            </TouchableOpacity>
-          </View>
-        );
-      }
+  render() {
+    return (
+      <View>
+        <TextInput
+          style={styles.input}
+          placeholder="Búsqueda"
+          name="busqueda"
+          onChangeText={(text) => this.actualizar(text)}
+        />
+        <TouchableOpacity 
+        style={styles.btn}
+        onPress={(event) => this.evitarSubmit(event)}>
+            <Text style = {styles.textBtn} >Buscar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
