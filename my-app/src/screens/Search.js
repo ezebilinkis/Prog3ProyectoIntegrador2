@@ -60,7 +60,9 @@ export default class Search extends Component {
                 <View >
                 <Text >Nombre de usuario: {item.data.name}</Text>
                 <Text >Minibio: {item.data.minibio}</Text>
-                <Text >Email: {item.data.owner}</Text>
+                <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Perfil', {email: item.data.owner})}}>
+                    <Text>Email: {item.data.owner}</Text>
+                </TouchableOpacity>
                 {item.data.fotoPerfil == '' ? (
                 <></>
                 ) : (
