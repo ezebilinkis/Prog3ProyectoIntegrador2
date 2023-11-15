@@ -82,7 +82,7 @@ export default class Posteo extends Component {
         </TouchableOpacity>
         <Text style={styles.ownerText}>Ultimos comentarios: </Text>
       {
-        this.state.comentarios.length > 1?
+        this.state.comentarios.length > 0?
         <FlatList
             data={this.state.comentarios}
             keyExtractor={(item) => item.createdAt.toString()}

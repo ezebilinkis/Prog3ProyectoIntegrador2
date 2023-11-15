@@ -4,7 +4,7 @@ import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Home from '../screens/Home'
 import Profile from '../screens/Profile'
 import Post from '../screens/post'
-import Search from '../screens/search'
+import Search from '../screens/Search'
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator()
