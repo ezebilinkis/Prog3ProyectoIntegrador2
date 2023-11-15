@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Image, FlatList } from 'react-native';
 import { db, auth } from '../firebase/config';
 import firebase from 'firebase';
 import {FontAwesome} from '@expo/vector-icons'
@@ -9,9 +9,17 @@ export default class Posteo extends Component {
     super(props);
     this.state = {
       like: this.props.data.likes.includes(auth.currentUser.email),
+      comentarios: this.props.data.comentarios.reverse(),
     };
   }
-
+  componentDidMount(){
+    if (this.state.comentarios.length > 4) {
+      this.setState({
+        comentarios: this.state.comentarios.slice(0,4)
+      }, ()=>console.log(this.state.comentarios))
+    }
+    console.log(this.state.comentarios);
+  }
   likes() {
     if (this.state.like) {
       db.collection('posts')
@@ -72,6 +80,23 @@ export default class Posteo extends Component {
         >
           <Text style={styles.commentButtonText}>Comentarios: {this.props.data.comentarios.length}</Text>
         </TouchableOpacity>
+        <Text style={styles.ownerText}>Ultimos comentarios: </Text>
+      {
+        this.state.comentarios.length > 1?
+        <FlatList
+            data={this.state.comentarios}
+            keyExtractor={(item) => item.createdAt.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.commentContainer}>
+                <Text style={styles.ownerText}>{item.owner}</Text>
+                <Text style={styles.ownerText}>{item.comentario}</Text>
+              </View>
+            )}
+          />
+        :
+        <Text style={styles.ownerText}>Aun no se hicieron comentarios </Text>
+      }
+        
       </View>
     );
   }
