@@ -51,7 +51,7 @@ export default class Posteo extends Component {
     return (
       <View style={styles.postContainer}>
         <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Perfil', {email: this.props.data.owner})}}>
-          <Text style={styles.ownerText}>{this.props.data.owner}</Text>
+          <Text style={styles.mailText}>{this.props.data.owner}</Text>
         </TouchableOpacity>
         
         <Image
@@ -80,7 +80,7 @@ export default class Posteo extends Component {
         >
           <Text style={styles.commentButtonText}>Comentarios: {this.props.data.comentarios.length}</Text>
         </TouchableOpacity>
-        <Text style={styles.ownerText}>Ultimos comentarios: </Text>
+        <Text style={styles.comentText}>Ultimos comentarios: </Text>
       {
         this.state.comentarios.length > 0?
         <FlatList
@@ -104,7 +104,7 @@ export default class Posteo extends Component {
 
 const styles = StyleSheet.create({
   postContainer: {
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     padding: 10,
     marginVertical: 10,
     borderRadius: 8,
@@ -112,9 +112,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   ownerText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
+    color: 'grey',
+    fontSize: 14,
+    fontFamily: 'Arial, sans-serif', 
+    textAlign: 'center', 
+    margin: 0, 
+    padding: 10,
+    border: 2,
+    borderRadius: 5
   },
   imgCard: {
     height: 150,
@@ -148,4 +153,23 @@ const styles = StyleSheet.create({
   commentButtonText: {
     color: 'white',
   },
+  comentText:{
+    fontWeight: 'bold',
+    fontSize: 16,
+    textTransform: 'uppercase', 
+    color: 'black',
+    textAlign: 'center', 
+    padding: 10,
+  },
+  mailText:{
+    fontWeight: 'bold',
+    fontSize: 16,
+    textTransform: 'uppercase', 
+    color: 'black',
+    textAlign: 'center', 
+    padding: 10,
+    fontFamily: 'Monserrat'
+
+  }
+
 });

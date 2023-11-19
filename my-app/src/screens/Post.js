@@ -70,9 +70,7 @@ render() {
                   fotoUrl: this.state.urlFoto
               })}
             >
-                <Text>
-                    Enviar
-                </Text>
+                <Text style={styles.enviar}> Enviar</Text>
             </TouchableOpacity> 
       </View>
     )
@@ -82,5 +80,17 @@ render() {
 const styles = StyleSheet.create({
   container:{
     flex:1
+  },
+  enviar: {
+    color:'black',
+    fontSize: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    fontFamily: 'Monserrat',
+    padding: 10,
+    fontWeight: 'bold',
+    
   }
+  
 })

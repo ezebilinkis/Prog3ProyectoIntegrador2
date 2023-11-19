@@ -14,11 +14,11 @@ export default class FormularioSearch extends Component {
     render() {
         return (
             <View>
-               <Text>Formulario</Text>
+               <Text style= {styles.searchText}>Formulario</Text>
                <ScrollView >
             <View >
-            <Text >consulta</Text>
-            <TextInput
+            <Text style= {styles.searchText}>consulta</Text>
+            <TextInput style= {styles.formText}
             placeholder="Descripcion del post"
             keyboardType="email-address"
             value={this.props.estadoDescripcion}
@@ -30,3 +30,23 @@ export default class FormularioSearch extends Component {
         );
     }
 }
+let styles = StyleSheet.create({
+ 
+
+    searchText:{   fontWeight: 'bold',
+    fontSize: 16,
+    color: 'black',
+    textAlign: 'center', 
+    padding: 10,
+    fontFamily: 'Monserrat'},
+
+    formText:{
+        fontSize: 14,
+        color: 'grey',
+        textAlign: 'center', 
+        padding: 10,
+    
+      },
+
+  
+  })

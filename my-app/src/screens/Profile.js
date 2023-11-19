@@ -70,30 +70,36 @@ cancelarBorrarPosteo() {
 
 render() {
   return (
-    <ScrollView>
-      <Text style={styles.miPerfilTxt}>Perfil</Text>
-      <FlatList
-        data={this.state.usuarios}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.container}>
-            <Text style={styles.datosMiPerfilTxt}>Nombre de usuario: {item.data.name}</Text>
-            <Text style={styles.datosMiPerfilTxt}>Minibio: {item.data.minibio}</Text>
-            <Text style={styles.datosMiPerfilTxt}>Email: {item.data.owner}</Text>
-            {item.data.fotoPerfil == '' ? (
-              <></>
-            ) : (
-              <Image source={{ uri: item.data.fotoPerfil }} style={styles.img} />
-            )}
-            <Text style={styles.datosMiPerfilTxt}>Cantidad de posteos: {this.state.posteo.length}</Text>
-          </View>
-        )}
-      />
-      <View>
-        <TouchableOpacity style={styles.signoutBtn} onPress={() => this.logout()}>
-          <Text style={styles.signoutBtnText}>Cerrar sesión</Text>
-        </TouchableOpacity>
-      </View>
+
+
+
+      <ScrollView style={styles.profileContainer}>
+        <Text style={styles.miPerfilTxt}>Perfil</Text>
+        <FlatList
+          data={this.state.usuarios}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.container}>
+              <Text style={styles.datosMiPerfilTxt}>Nombre de usuario: {item.data.name}</Text>
+              <Text style={styles.datosMiPerfilTxt}>Minibio: {item.data.minibio}</Text>
+              <Text style={styles.datosMiPerfilTxt}>Email: {item.data.owner}</Text>
+      
+              {item.data.fotoPerfil == '' ? (
+                <></>
+              ) : (
+                <Image source={{ uri: item.data.fotoPerfil }} style={styles.img} />
+              )}
+              <Text style={styles.datosMiPerfilTxt}>Cantidad de posteos: {this.state.posteo.length}</Text>
+            </View>
+          )}
+        />
+
+        <View>
+          <TouchableOpacity style={styles.signoutBtn} onPress={() => this.logout()}>
+            <Text style={styles.signoutBtnText}>Cerrar sesión</Text>
+          </TouchableOpacity>
+        </View>
+
       <ScrollView>
         <FlatList
           data={this.state.posteo}
@@ -102,7 +108,7 @@ render() {
             <View>
               <Posteo navigation={this.props.navigation} data={item.data} id={item.id} />
               <TouchableOpacity onPress={() => this.confirmarBorrarPosteo(item)}>
-                <Text>Borrar Posteo</Text>
+                <Text style= {styles.borrarPosteo}>Borrar Posteo</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -133,11 +139,20 @@ render() {
         </View>
       </Modal>
     </ScrollView>
+
   );
 }
 }
 
 const styles = StyleSheet.create({
+    profileContainer: {
+    backgroundColor: 'white',
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 8,
+    width: '60%',
+    alignSelf: 'center',
+  },
   signoutBtn: {
     backgroundColor: 'blue',
     padding: 10,
@@ -154,17 +169,24 @@ const styles = StyleSheet.create({
   },
   miPerfilTxt: {
     color: 'black',
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: 'bold',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
+    fontFamily: 'Monserrat',
+    padding: 10,
+
+
   },
   datosMiPerfilTxt: {
     fontSize: 18,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
+    fontFamily: 'Monserrat',
+    padding: 10,
+
   },
   img: {
     height: 300,
@@ -209,4 +231,13 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: 'center',
   },
+  borrarPosteo:{
+    fontSize: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    fontFamily: 'Monserrat',
+    padding: 10,
+    fontWeight: 'bold',
+  }
 });

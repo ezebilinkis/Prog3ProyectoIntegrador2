@@ -39,29 +39,29 @@ export default class Search extends Component {
 
     render() {
         return (
-          <View>
+          <View style= {styles.formContainer}>
             <FormularioSearch actuConsulta={(texto)=>this.actualizarConsulta(texto)}/>
             {
               this.state.consulta == ''?
               <View>
 
-              <Text>Busqueda</Text>
+              <Text style= {styles.busquedaText}>Busqueda</Text>
               
               </View>
               
               :
             <ScrollView>
-               <Text>Formulario</Text>
+               <Text style = {styles.searchText}>Formulario</Text>
                
                <FlatList
                 data={this.state.usuarios}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                 <View >
-                <Text >Nombre de usuario: {item.data.name}</Text>
-                <Text >Minibio: {item.data.minibio}</Text>
+                <Text  style = {styles.formText}>Nombre de usuario: {item.data.name}</Text>
+                <Text  style = {styles.formText}>Minibio: {item.data.minibio}</Text>
                 <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Perfil', {email: item.data.owner})}}>
-                    <Text>Email: {item.data.owner}</Text>
+                    <Text style = {styles.formText}>Email: {item.data.owner}</Text>
                 </TouchableOpacity>
                 {item.data.fotoPerfil == '' ? (
                 <></>
@@ -80,7 +80,39 @@ export default class Search extends Component {
 }
 
 let styles = StyleSheet.create({
+  formContainer: {
+    backgroundColor: 'white',
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 8,
+    width: '60%',
+    alignSelf: 'center',
+  },
   img:{
     width: 300
+  },
+  formText:{
+    fontSize: 14,
+    color: 'grey',
+    textAlign: 'center', 
+    padding: 10,
+
+  },
+  searchText:{   fontWeight: 'bold',
+  fontSize: 16,
+  textTransform: 'uppercase', 
+  color: 'black',
+  textAlign: 'center', 
+  padding: 10,
+  fontFamily: 'Monserrat'},
+
+  busquedaText:{
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'black',
+    textAlign: 'center', 
+    padding: 10,
+    fontFamily: 'Monserrat'
   }
+
 })
