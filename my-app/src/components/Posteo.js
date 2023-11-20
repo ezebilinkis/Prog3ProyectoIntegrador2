@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   descriptionText: {
-    color: 'white',
+    color: 'black',
     fontSize: 14,
     marginBottom: 10,
     alignSelf: 'center',
